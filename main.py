@@ -30,8 +30,9 @@ def main():
         screen.fill("black")
 
         player.draw(screen)
+        player.update(dt)
 
-        
+
         clock.tick(60)
         dt = clock.get_time() / 1000.0 
 
