@@ -15,7 +15,7 @@ class Asteroid(CircleShape):
     def draw(self, screen):
         pygame.draw.circle(
             screen,
-            "white",
+            self.color,
             (int(self.position.x), int(self.position.y)),
             self.radius,
             LINE_WIDTH,
@@ -37,4 +37,4 @@ class Asteroid(CircleShape):
         first_asteroid.velocity = first_asteroid_velocity
         second_asteroid = Asteroid(self.position.x, self.position.y, new_radius)
         second_asteroid.velocity = second_asteroid_velocity
-        
+
