@@ -30,6 +30,8 @@ class Game():
         AsteroidField.containers = (self.updatable)
         Shot.containers = (self.shots,self.updatable, self.drawable)
 
+     
+
         #Time
         self.clock = pygame.time.Clock()
         self.dt = 0
@@ -42,6 +44,12 @@ class Game():
 
         #player
         self.player = Player(screen_width / 2, screen_height / 2)
+
+        #colors
+        Asteroid.color = self.sprite_color
+        Shot.color = self.sprite_color
+        Player.color = self.sprite_color
+        self.background_color = background_color
 
     def start(self):
         while self.__runing:
@@ -69,7 +77,6 @@ class Game():
                 sprite.update(self.dt)
 
             for sprite in self.drawable:
-                sprite.color = self.sprite_color
                 sprite.draw(self.screen)
 
 

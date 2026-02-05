@@ -9,7 +9,7 @@ def main():
     print(F"Screen width: {SCREEN_WIDTH}")
     print(F"Screen height: {SCREEN_HEIGHT}")
 
-    game = Game(sprite_color="violet", background_color="black")
+    game = Game(sprite_color="white", background_color="black")
     game.start()
     
 
