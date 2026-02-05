@@ -3,6 +3,14 @@
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 
+#Menu dimensions
+MENU_WIDTH = 600
+MENU_HEIGHT = 400
+
+#Menu titles
+MENU_TITLE = "Druksteroids Menu"
+SELECTOR_TITLE = "Color game: "
+
 #General properties
 LINE_WIDTH = 2
 

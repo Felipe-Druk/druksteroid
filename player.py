@@ -6,7 +6,7 @@ from shot import Shot
 
 class Player(CircleShape):
 
-    color = "white"
+    
 
     def __init__(self, x, y):
         self.radius = PLAYER_RADIUS
