@@ -13,7 +13,6 @@ from player import Player
 class Game():
 
     def __init__(self, screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT, sprite_color = "white", background_color = "black"):
-        pygame.init()
 
         self.__runing = True
         self.sprite_color = sprite_color
@@ -51,6 +50,15 @@ class Game():
         Player.color = self.sprite_color
         self.background_color = background_color
 
+    def change_sprite_color(self, color):
+        self.sprite_color = color
+        Asteroid.color = self.sprite_color
+        Shot.color = self.sprite_color
+        self.player.color = self.sprite_color
+    
+    def change_background_color(self, color):
+        self.background_color = color
+
     def start(self):
         while self.__runing:
             log_state()
@@ -84,4 +92,3 @@ class Game():
             self.dt = self.clock.get_time() / 1000.0 
 
             pygame.display.flip()
-        pygame.quit()
