@@ -12,3 +12,6 @@ wheels/
 #logger
 game_state.jsonl
 game_events.jsonl
+
+#only for development
+development_tools.py
