@@ -51,7 +51,6 @@ class Game():
         self.background_color = background_color
 
     def change_sprite_color(self, color):
-        print(f"Changing sprite color to: {color}")
         self.sprite_color = color
         Asteroid.color = self.sprite_color
         Shot.color = self.sprite_color

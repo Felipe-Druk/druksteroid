@@ -2,6 +2,8 @@ import pygame
 import pygame_menu as pm
 
 from constants import MENU_WIDTH, MENU_HEIGHT, MENU_TITLE, SELECTOR_TITLE
+from color import WHITE, RED, BLUE, GREEN, YELLOW,NEON_PURPLE ,DEFAULT_SPRITE_COLOR
+
 
 
 
@@ -18,23 +20,22 @@ class MenuDruksteroid(pm.Menu):
         self.add.button("Start Game", self.start_game)
         self.color_selector = self.add.selector(
             SELECTOR_TITLE,
-            [("White", 1), ("Red", 2), ("Blue", 3), ("Green", 4), ("Yellow", 5)],
+            [("White", 1), ("Red", 2), ("Blue", 3), ("Green", 4), ("Yellow", 5), ("Neon Purple", 6)],
         )
         self.add.button("Quit", pm.events.EXIT)
-        self.selected_color = "white"
 
     def get_selected_color(self):
         selected_tuple = self.color_selector.get_value()
-        print(f"Selected tuple: {selected_tuple}")
-        color_name = selected_tuple[0][0] if selected_tuple else "white"
+        color_name = selected_tuple[0][0] if selected_tuple else DEFAULT_SPRITE_COLOR
         color_dict = {
-            "White": "white",
-            "Red": "red",
-            "Blue": "blue",
-            "Green": "green",
-            "Yellow": "yellow",
+            "White": WHITE,
+            "Red": RED,
+            "Blue": BLUE,
+            "Green": GREEN,
+            "Yellow": YELLOW,
+            "Neon Purple": NEON_PURPLE
         }
-        return color_dict.get(color_name, "white")
+        return color_dict.get(color_name, DEFAULT_SPRITE_COLOR)
     
     def start_game(self):
         self.disable()  
