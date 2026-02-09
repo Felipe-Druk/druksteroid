@@ -31,5 +31,4 @@ class Score(pygame.sprite.Sprite):
         self.__new_image()
     
     def draw(self, screen):
-    
         screen.blit(self.image, self.rect) 

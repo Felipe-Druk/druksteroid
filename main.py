@@ -1,17 +1,17 @@
 import pygame   
 import sys
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, DEFAULT_SPRITE_COLOR, DEFAULT_BACKGROUND_COLOR
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from game import Game
 from menu_druksteroid import MenuDruksteroid
 
 def main():
     pygame.init()
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
-    print(F"Screen width: {SCREEN_WIDTH}")
-    print(F"Screen height: {SCREEN_HEIGHT}")
+    print(f"Screen width: {SCREEN_WIDTH}")
+    print(f"Screen height: {SCREEN_HEIGHT}")
 
-    game = Game(sprite_color=DEFAULT_SPRITE_COLOR, background_color=DEFAULT_BACKGROUND_COLOR)
+    game = Game()
     menu = MenuDruksteroid(game.screen)
 
 
