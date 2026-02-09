@@ -1,9 +1,11 @@
 import pygame
 
+from constants import DEFAULT_SPRITE_COLOR
+
 # Base class for game objects
 class CircleShape(pygame.sprite.Sprite):
     
-    color = "white"
+    color = DEFAULT_SPRITE_COLOR
 
     def __init__(self, x, y, radius):
         # we will be using this later

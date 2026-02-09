@@ -59,6 +59,9 @@ uv run main.py
 - `circleshape.py` - Base class for circular game objects
 - `constants.py` - Game constants and configuration
 - `logger.py` - Event and state logging utility
+- `color.py` - Personal colors
+- `menu_druksteroid.py` - Menu base for the game
+
 
 ---
 

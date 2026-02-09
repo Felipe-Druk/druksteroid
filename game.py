@@ -1,18 +1,19 @@
 
 import pygame
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, DEFAULT_SPRITE_COLOR, DEFAULT_BACKGROUND_COLOR
 from shot import Shot
 
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from logger import log_event, log_state
 from player import Player
+from score import Score
 
 
 class Game():
 
-    def __init__(self, screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT, sprite_color = "white", background_color = "black"):
+    def __init__(self, screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT, sprite_color = DEFAULT_SPRITE_COLOR, background_color = DEFAULT_BACKGROUND_COLOR):
 
         self.__runing = True
         self.sprite_color = sprite_color
@@ -23,13 +24,16 @@ class Game():
         self.drawable = pygame.sprite.Group()
         self.asteroids = pygame.sprite.Group()
         self.shots = pygame.sprite.Group()
+        self.texts = pygame.sprite.Group()
 
         Player.containers = (self.updatable, self.drawable)
         Asteroid.containers = (self.asteroids, self.updatable, self.drawable)
         AsteroidField.containers = (self.updatable)
         Shot.containers = (self.shots,self.updatable, self.drawable)
+        Score.containers = (self.drawable, self.texts)
 
      
+
 
         #Time
         self.clock = pygame.time.Clock()
@@ -40,6 +44,9 @@ class Game():
 
         #asteroid field
         self.asteroid_field = AsteroidField()
+
+        #score
+        self.score = Score(0, 100 , screen_height - 100)
 
         #player
         self.player = Player(screen_width / 2, screen_height / 2)
@@ -79,6 +86,7 @@ class Game():
                     if shot.collides_with(asteroid):
                         log_event("asteroid_shot")
                         asteroid.split()
+                        self.score.increase(10)
                         shot.kill()
 
             for sprite in self.updatable:
@@ -92,3 +100,5 @@ class Game():
             self.dt = self.clock.get_time() / 1000.0 
 
             pygame.display.flip()
+        print(f"final score: {self.score.score}")
+        print(f"Exiting game... Bye!")

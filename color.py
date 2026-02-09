@@ -38,7 +38,3 @@ MAROON = (128, 0, 0)
 TEAL = (0, 128, 128)
 NAVY = (0, 0, 128)
 CHARCOAL = (54, 69, 79)
-
-#Color definitions
-DEFAULT_SPRITE_COLOR = "white"
-DEFAULT_BACKGROUND_COLOR = "black"  
