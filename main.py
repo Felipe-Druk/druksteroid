@@ -14,10 +14,11 @@ def main():
     game = Game(sprite_color=DEFAULT_SPRITE_COLOR, background_color=DEFAULT_BACKGROUND_COLOR)
     menu = MenuDruksteroid(game.screen)
 
+
     menu.display()
     game.change_sprite_color(menu.get_selected_color())
     game.start()
-
+    
     pygame.quit() 
     
 
