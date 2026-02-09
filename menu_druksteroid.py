@@ -2,7 +2,7 @@ import pygame
 import pygame_menu as pm
 
 from constants import MENU_WIDTH, MENU_HEIGHT, MENU_TITLE, SELECTOR_TITLE, DEFAULT_SPRITE_COLOR, DEFAULT_BACKGROUND_COLOR
-from color import WHITE, RED, BLUE, GREEN, YELLOW, NEON_PURPLE
+from color import BLACK, WHITE, RED, BLUE, GREEN, YELLOW, NEON_PURPLE
 
 
 
@@ -20,7 +20,7 @@ class MenuDruksteroid(pm.Menu):
         self.add.button("Start Game", self.start_game)
         self.color_selector = self.add.selector(
             SELECTOR_TITLE,
-            [("White", 1), ("Red", 2), ("Blue", 3), ("Green", 4), ("Yellow", 5), ("Neon Purple", 6)],
+            [("White", 1), ("Red", 2), ("Blue", 3), ("Green", 4), ("Yellow", 5), ("Neon Purple", 6), ("Black", 7)],
         )
         self.add.button("Quit", pm.events.EXIT)
 
@@ -33,7 +33,8 @@ class MenuDruksteroid(pm.Menu):
             "Blue": BLUE,
             "Green": GREEN,
             "Yellow": YELLOW,
-            "Neon Purple": NEON_PURPLE
+            "Neon Purple": NEON_PURPLE,
+            "Black": BLACK
         }
         return color_dict.get(color_name, DEFAULT_SPRITE_COLOR)
     

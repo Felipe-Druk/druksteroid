@@ -2,13 +2,16 @@
 import pygame
 
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, DEFAULT_SPRITE_COLOR, DEFAULT_BACKGROUND_COLOR
-from shot import Shot
 
-from asteroid import Asteroid
-from asteroidfield import AsteroidField
 from logger import log_event, log_state
-from player import Player
-from score import Score
+
+
+#sprites
+from sprites.shot import Shot
+from sprites.asteroid import Asteroid
+from sprites.asteroidfield import AsteroidField
+from sprites.player import Player
+from sprites.score import Score
 
 
 class Game():

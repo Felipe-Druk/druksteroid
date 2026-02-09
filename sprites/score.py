@@ -1,6 +1,6 @@
 import pygame
 
-from constants import FONT_SIZE, FONT_COLOR
+import constants
 
 
 
@@ -11,13 +11,13 @@ class Score(pygame.sprite.Sprite):
         else:
             super().__init__()
         self.score = score
-        self.font = pygame.font.SysFont(None, FONT_SIZE)
-        self.image = self.font.render(f'Score: {self.score}', True, FONT_COLOR)
+        self.font = pygame.font.SysFont(None, constants.FONT_SIZE)
+        self.image = self.font.render(f'Score: {self.score}', True, constants.FONT_COLOR)
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 
     def __new_image(self):
-        self.image = self.font.render(f'Score: {self.score}', True, FONT_COLOR)
+        self.image = self.font.render(f'Score: {self.score}', True, constants.FONT_COLOR)
         old_topleft = self.rect.topleft
         self.rect = self.image.get_rect()
         self.rect.topleft = old_topleft
