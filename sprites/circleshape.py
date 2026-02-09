@@ -1,21 +1,13 @@
 import pygame
 
 import constants
+from sprites.sahpe import Shpe
 
 # Base class for game objects
-class CircleShape(pygame.sprite.Sprite):
-    
-    color = constants.DEFAULT_SPRITE_COLOR
+class CircleShape(Shpe):
 
     def __init__(self, x, y, radius):
-        # we will be using this later
-        if hasattr(self, "containers"):
-            super().__init__(self.containers)
-        else:
-            super().__init__()
-
-        self.position = pygame.Vector2(x, y)
-        self.velocity = pygame.Vector2(0, 0)
+        super().__init__(x, y)
         self.radius = radius
     
     def collides_with(self, other):
