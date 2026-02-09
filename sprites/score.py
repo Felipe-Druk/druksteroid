@@ -2,22 +2,19 @@ import pygame
 
 import constants
 
+from sprites.sahpe import Shpe
 
-
-class Score(pygame.sprite.Sprite):
+class Score(Shpe):
     def __init__(self, score, x, y):
-        if hasattr(self, "containers"):
-            super().__init__(self.containers)
-        else:
-            super().__init__()
+        super().__init__(x, y)
         self.score = score
         self.font = pygame.font.SysFont(None, constants.FONT_SIZE)
-        self.image = self.font.render(f'Score: {self.score}', True, constants.FONT_COLOR)
+        self.image = self.font.render(f'Score: {self.score}', True, self.color)
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 
     def __new_image(self):
-        self.image = self.font.render(f'Score: {self.score}', True, constants.FONT_COLOR)
+        self.image = self.font.render(f'Score: {self.score}', True, self.color)
         old_topleft = self.rect.topleft
         self.rect = self.image.get_rect()
         self.rect.topleft = old_topleft

@@ -59,12 +59,14 @@ class Game():
         Shot.color = self.sprite_color
         Player.color = self.sprite_color
         self.background_color = background_color
+        self.score.color = self.sprite_color
 
     def change_sprite_color(self, color):
         self.sprite_color = color
         Asteroid.color = self.sprite_color
         Shot.color = self.sprite_color
         self.player.color = self.sprite_color
+        self.score.color = self.sprite_color
     
     def change_background_color(self, color):
         self.background_color = color

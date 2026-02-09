@@ -28,7 +28,6 @@ PLAYER_SPEED = 200
 #Score properties
 SCORE_INCREASE_AMOUNT = 10
 FONT_SIZE = 40
-FONT_COLOR = WHITE
 
 #Asteroids propierties
 ASTEROID_MIN_RADIUS = 20
