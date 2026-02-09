@@ -46,7 +46,7 @@ class Game():
         self.asteroid_field = AsteroidField()
 
         #score
-        self.score = Score(0, screen_width /4, screen_height /2)
+        self.score = Score(0, 100 , screen_height - 100)
 
         #player
         self.player = Player(screen_width / 2, screen_height / 2)
