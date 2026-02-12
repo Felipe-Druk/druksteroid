@@ -19,6 +19,10 @@ class Score(Shpe):
         self.rect = self.image.get_rect()
         self.rect.topleft = old_topleft
 
+    def change_color(self, color):
+        self.color = color
+        self.__new_image()
+
     def increase(self, amount):
         self.score += amount
         self.__new_image()
