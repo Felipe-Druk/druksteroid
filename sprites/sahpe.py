@@ -1,13 +1,13 @@
 import pygame
 
-from constants import DEFAULT_SPRITE_COLOR
+import constants
 
 # Base class for game objects
-class CircleShape(pygame.sprite.Sprite):
+class Shpe(pygame.sprite.Sprite):
     
-    color = DEFAULT_SPRITE_COLOR
+    color = constants.DEFAULT_SPRITE_COLOR
 
-    def __init__(self, x, y, radius):
+    def __init__(self, x, y):
         # we will be using this later
         if hasattr(self, "containers"):
             super().__init__(self.containers)
@@ -16,11 +16,10 @@ class CircleShape(pygame.sprite.Sprite):
 
         self.position = pygame.Vector2(x, y)
         self.velocity = pygame.Vector2(0, 0)
-        self.radius = radius
-    
+
     def collides_with(self, other):
-        distance = self.position.distance_to(other.position)
-        return distance < (self.radius + other.radius)
+        # must override
+        pass
 
     def draw(self, screen):
         # must override

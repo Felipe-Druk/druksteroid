@@ -2,13 +2,16 @@
 import pygame
 
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, DEFAULT_SPRITE_COLOR, DEFAULT_BACKGROUND_COLOR
-from shot import Shot
 
-from asteroid import Asteroid
-from asteroidfield import AsteroidField
 from logger import log_event, log_state
-from player import Player
-from score import Score
+
+
+#sprites
+from sprites.shot import Shot
+from sprites.asteroid import Asteroid
+from sprites.asteroidfield import AsteroidField
+from sprites.player import Player
+from sprites.score import Score
 
 
 class Game():
@@ -56,12 +59,15 @@ class Game():
         Shot.color = self.sprite_color
         Player.color = self.sprite_color
         self.background_color = background_color
+        self.score.change_color(self.sprite_color)
 
     def change_sprite_color(self, color):
         self.sprite_color = color
         Asteroid.color = self.sprite_color
         Shot.color = self.sprite_color
         self.player.color = self.sprite_color
+        self.score.change_color(self.sprite_color)
+        
     
     def change_background_color(self, color):
         self.background_color = color
