@@ -38,4 +38,7 @@ class Asteroid(CircleShape):
         angle = random.uniform(20,50)
         first_asteroid = self.__create_child(angle)
         second_asteroid = self.__create_child(-angle)
+    
+    def reset(self):
+        self.kill()
         

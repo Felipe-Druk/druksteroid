@@ -28,12 +28,13 @@ class Game():
         self.asteroids = pygame.sprite.Group()
         self.shots = pygame.sprite.Group()
         self.texts = pygame.sprite.Group()
+        self.resetables = pygame.sprite.Group()
 
-        Player.containers = (self.updatable, self.drawable)
-        Asteroid.containers = (self.asteroids, self.updatable, self.drawable)
+        Player.containers = (self.updatable, self.drawable, self.resetables)
+        Asteroid.containers = (self.asteroids, self.updatable, self.drawable, self.resetables)
         AsteroidField.containers = (self.updatable)
         Shot.containers = (self.shots,self.updatable, self.drawable)
-        Score.containers = (self.drawable, self.texts)
+        Score.containers = (self.drawable, self.texts, self.resetables)
 
 
         #Time
@@ -77,13 +78,13 @@ class Game():
     
     def reset(self):
         self.__runing = True
-        for asteroid in self.asteroids:
-            asteroid.kill()
-        self.shots.empty()
-        self.score.score = 0
+        for sprite in self.resetables:
+            sprite.reset()
+
+        self.asteroid_field.spawn_timer = 0
         self.dt = 0
         self.player.reset()
-        self.clock.tick(0)
+        self.clock.tick(self.dt)
 
     def start(self):
         while self.__runing:
@@ -116,7 +117,7 @@ class Game():
             
             keys = pygame.key.get_pressed()
             
-            if keys[pygame.K_ESCAPE]:
+            if keys[pygame.K_ESCAPE] or keys[pygame.K_q]:
                 self.__runing = False
                 break
             
