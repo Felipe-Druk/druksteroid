@@ -40,7 +40,11 @@ class MenuDruksteroid(pm.Menu):
     
     def start_game(self):
         self.disable()
-        self.close()
+
 
     def display(self):
         self.mainloop(self.screen)
+    
+    def reset(self):
+        self.enable()
+        self.__init__(self.screen)

@@ -113,6 +113,15 @@ class Game():
 
             for sprite in self.drawable:
                 sprite.draw(self.screen)
+            
+            keys = pygame.key.get_pressed()
+            
+            if keys[pygame.K_ESCAPE]:
+                self.__runing = False
+                break
+            
+            if keys[pygame.K_r]:
+                self.reset()
 
 
             self.clock.tick(60)
