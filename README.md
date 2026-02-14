@@ -33,6 +33,8 @@ uv run main.py
 - Smooth ship rotation and movement
 - Asteroid splitting mechanics (large asteroids break into smaller ones)
 - Collision detection between ship, asteroids, and shots
+- Reset by keys "back" and "q"
+- chose color from sprites
 
 ## Future Enhancement Ideas
 
@@ -52,15 +54,17 @@ uv run main.py
 ## Project Structure
 
 - `main.py` - Game entry point and main loop
-- `player.py` - Player ship class
-- `asteroid.py` - Asteroid class with splitting mechanics
-- `asteroidfield.py` - Asteroid field manager
-- `shot.py` - Bullet/shot class
-- `circleshape.py` - Base class for circular game objects
 - `constants.py` - Game constants and configuration
 - `logger.py` - Event and state logging utility
 - `color.py` - Personal colors
 - `menu_druksteroid.py` - Menu base for the game
+- `sprites` - Directory from sprites
+    - `player.py` - Player ship class
+    - `asteroid.py` - Asteroid class with splitting mechanics
+    - `asteroidfield.py` - Asteroid field manager
+    - `circleshape.py` - Base class for circular game objects
+    - `shot.py` - Bullet/shot class
+
 
 
 ---
