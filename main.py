@@ -12,12 +12,20 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
 
     game = Game()
-    menu = MenuDruksteroid(game.screen)
 
+    score = 0
 
-    menu.display()
-    game.change_sprite_color(menu.get_selected_color())
-    game.start()
+    while True:
+        menu = MenuDruksteroid(game.screen)
+        menu.display()
+        game.change_sprite_color(menu.get_selected_color())
+        game.start()
+
+        if score < game.get_score():
+            score = game.get_score()
+            print(f"New high score: {score}")
+        
+        game.reset()
     
     pygame.quit() 
     

@@ -35,8 +35,6 @@ class Game():
         Shot.containers = (self.shots,self.updatable, self.drawable)
         Score.containers = (self.drawable, self.texts)
 
-     
-
 
         #Time
         self.clock = pygame.time.Clock()
@@ -44,6 +42,8 @@ class Game():
 
         #Screen
         self.screen = pygame.display.set_mode((screen_width, screen_height))
+        self.__screen_width = screen_width
+        self.__screen_height = screen_height
 
         #asteroid field
         self.asteroid_field = AsteroidField()
@@ -71,6 +71,19 @@ class Game():
     
     def change_background_color(self, color):
         self.background_color = color
+
+    def get_score(self):
+        return self.score.score
+    
+    def reset(self):
+        self.__runing = True
+        for asteroid in self.asteroids:
+            asteroid.kill()
+        self.shots.empty()
+        self.score.score = 0
+        self.dt = 0
+        self.player.reset()
+        self.clock.tick(0)
 
     def start(self):
         while self.__runing:
