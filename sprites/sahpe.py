@@ -17,6 +17,9 @@ class Shpe(pygame.sprite.Sprite):
         self.position = pygame.Vector2(x, y)
         self.velocity = pygame.Vector2(0, 0)
 
+        self.__initial_position = self.position.copy()
+        self.__initial_velocity = self.velocity.copy()
+
     def collides_with(self, other):
         # must override
         pass
@@ -28,3 +31,7 @@ class Shpe(pygame.sprite.Sprite):
     def update(self, dt):
         # must override
         pass
+
+    def reset(self):
+        self.position = self.__initial_position.copy()
+        self.velocity = self.__initial_velocity.copy()

@@ -39,7 +39,12 @@ class MenuDruksteroid(pm.Menu):
         return color_dict.get(color_name, DEFAULT_SPRITE_COLOR)
     
     def start_game(self):
-        self.disable()  
+        self.disable()
+
 
     def display(self):
         self.mainloop(self.screen)
+    
+    def reset(self):
+        self.enable()
+        self.__init__(self.screen)

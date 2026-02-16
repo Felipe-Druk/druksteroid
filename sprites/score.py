@@ -28,6 +28,7 @@ class Score(Shpe):
         self.__new_image()
     
     def reset(self):
+        super().reset()
         self.score = 0
         self.__new_image()
     

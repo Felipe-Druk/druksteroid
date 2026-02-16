@@ -28,14 +28,13 @@ class Game():
         self.asteroids = pygame.sprite.Group()
         self.shots = pygame.sprite.Group()
         self.texts = pygame.sprite.Group()
+        self.resetables = pygame.sprite.Group()
 
-        Player.containers = (self.updatable, self.drawable)
-        Asteroid.containers = (self.asteroids, self.updatable, self.drawable)
+        Player.containers = (self.updatable, self.drawable, self.resetables)
+        Asteroid.containers = (self.asteroids, self.updatable, self.drawable, self.resetables)
         AsteroidField.containers = (self.updatable)
         Shot.containers = (self.shots,self.updatable, self.drawable)
-        Score.containers = (self.drawable, self.texts)
-
-     
+        Score.containers = (self.drawable, self.texts, self.resetables)
 
 
         #Time
@@ -44,6 +43,8 @@ class Game():
 
         #Screen
         self.screen = pygame.display.set_mode((screen_width, screen_height))
+        self.__screen_width = screen_width
+        self.__screen_height = screen_height
 
         #asteroid field
         self.asteroid_field = AsteroidField()
@@ -71,6 +72,19 @@ class Game():
     
     def change_background_color(self, color):
         self.background_color = color
+
+    def get_score(self):
+        return self.score.score
+    
+    def reset(self):
+        self.__runing = True
+        for sprite in self.resetables:
+            sprite.reset()
+
+        self.asteroid_field.spawn_timer = 0
+        self.dt = 0
+        self.player.reset()
+        self.clock.tick(self.dt)
 
     def start(self):
         while self.__runing:
@@ -100,6 +114,15 @@ class Game():
 
             for sprite in self.drawable:
                 sprite.draw(self.screen)
+            
+            keys = pygame.key.get_pressed()
+            
+            if keys[pygame.K_ESCAPE] or keys[pygame.K_q]:
+                self.__runing = False
+                break
+            
+            if keys[pygame.K_r]:
+                self.reset()
 
 
             self.clock.tick(60)
