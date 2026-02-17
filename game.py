@@ -87,6 +87,7 @@ class Game():
     
     def reset(self):
         self.__runing = True
+        self.__is_paused = False
         for sprite in self.resetables:
             sprite.reset()
 
@@ -100,22 +101,32 @@ class Game():
         old_color = self.sprite_color
         new_color = darken_color(self.sprite_color, 0.5)
         self.change_sprite_color(new_color)
+        self.clock.tick(60)
 
         while self.__is_paused:
-            keys = pygame.key.get_pressed()
-            self.resolve_keys_imput(keys)
-            for sprite in self.drawable:
-                sprite.draw(self.screen)
+            self.__draw()
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+                    self.resolve_keys_imput(pygame.key.get_pressed(), event.type)
+            self.clock.tick(60)
+            self.dt = self.clock.get_time() / 1000.0 
+            pygame.display.flip()
+
+
         self.change_sprite_color(old_color)
 
-    def resolve_keys_imput(self, keys):
+    def resolve_keys_imput(self, keys, event_type = None):
+        if event_type is None:
+            return
+        
         if keys[pygame.K_ESCAPE] or keys[pygame.K_q]:
             self.__runing = False
+            self.__is_paused = False
             
         if keys[pygame.K_r]:
             self.reset()
-        
-        if keys[pygame.K_p]:
+
+        if keys[pygame.K_p] and event_type == pygame.KEYDOWN:
             log_event("PAUSE")
             if self.__is_paused:
                 log_event("UNPAUSE")
@@ -130,6 +141,11 @@ class Game():
                 if event.type == pygame.QUIT:
                     self.__runing = False
                     break
+                if event.type == pygame.KEYDOWN:
+                    self.resolve_keys_imput(pygame.key.get_pressed(), event.type)
+                if event.type == pygame.KEYUP:
+                    self.resolve_keys_imput(pygame.key.get_pressed(), event.type)
+
             self.screen.fill(self.background_color)
 
             for asteroid in self.asteroids:
@@ -147,8 +163,6 @@ class Game():
                         shot.kill()
             self.__update()
             self.__draw()
-            keys = pygame.key.get_pressed()
-            self.resolve_keys_imput(keys)
 
 
             self.clock.tick(60)
