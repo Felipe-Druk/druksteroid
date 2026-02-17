@@ -3,7 +3,7 @@ import pygame
 import constants
 
 # Base class for game objects
-class Shpe(pygame.sprite.Sprite):
+class Shape(pygame.sprite.Sprite):
     
     color = constants.DEFAULT_SPRITE_COLOR
 

@@ -4,17 +4,16 @@ import constants
 
 from sprites.shape import Shape
 
-class Score(Shape):
+class PauseMenu(Shape):
     def __init__(self, score, x, y):
         super().__init__(x, y)
-        self.score = score
         self.font = pygame.font.SysFont(None, constants.FONT_SIZE)
-        self.image = self.font.render(f'Score: {self.score}', True, self.color)
+        self.image = self.font.render(f'GAME PAUSED', True, self.color)
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 
     def __new_image(self):
-        self.image = self.font.render(f'Score: {self.score}', True, self.color)
+        self.image = self.font.render(f'GAME PAUSED', True, self.color)
         old_topleft = self.rect.topleft
         self.rect = self.image.get_rect()
         self.rect.topleft = old_topleft

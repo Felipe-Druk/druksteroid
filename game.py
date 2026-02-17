@@ -12,6 +12,7 @@ from sprites.asteroid import Asteroid
 from sprites.asteroidfield import AsteroidField
 from sprites.player import Player
 from sprites.score import Score
+from sprites.pause_menu import PauseMenu
 
 
 class Game():
@@ -102,7 +103,8 @@ class Game():
         new_color = darken_color(self.sprite_color, 0.5)
         self.change_sprite_color(new_color)
         self.clock.tick(60)
-
+        pause_menu = PauseMenu(self.score.score, self.__screen_width / 2 - 100, self.__screen_height / 2 - 50)
+        self.drawable.add(pause_menu)
         while self.__is_paused:
             self.__draw()
             for event in pygame.event.get():
@@ -112,7 +114,7 @@ class Game():
             self.dt = self.clock.get_time() / 1000.0 
             pygame.display.flip()
 
-
+        pause_menu.kill()
         self.change_sprite_color(old_color)
 
     def resolve_keys_imput(self, keys, event_type = None):
