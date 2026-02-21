@@ -71,7 +71,11 @@ class Game():
         self.screen.fill(self.background_color)
         for sprite in self.drawable:
             sprite.draw(self.screen)
-            
+
+    def __avance_time(self):
+        self.clock.tick(60)
+        self.dt = self.clock.get_time() / 1000.0
+
     def change_sprite_color(self, color):
         self.sprite_color = color
         Asteroid.color = self.sprite_color
@@ -102,7 +106,7 @@ class Game():
         old_color = self.sprite_color
         new_color = darken_color(self.sprite_color, 0.5)
         self.change_sprite_color(new_color)
-        self.clock.tick(60)
+        self.__avance_time()
         pause_menu = PauseMenu(self.score.score, self.__screen_width / 2 - 100, self.__screen_height / 2 - 50)
         self.drawable.add(pause_menu)
         while self.__is_paused:
@@ -110,8 +114,8 @@ class Game():
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
                     self.resolve_keys_imput(pygame.key.get_pressed(), event.type)
-            self.clock.tick(60)
-            self.dt = self.clock.get_time() / 1000.0 
+            pause_menu.update(self.dt)
+            self.__avance_time()
             pygame.display.flip()
 
         pause_menu.kill()
@@ -166,9 +170,7 @@ class Game():
             self.__update()
             self.__draw()
 
-
-            self.clock.tick(60)
-            self.dt = self.clock.get_time() / 1000.0 
+            self.__avance_time()
 
             pygame.display.flip()
         print(f"final score: {self.score.score}")
