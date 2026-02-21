@@ -15,3 +15,7 @@ game_events.jsonl
 
 #only for development
 development_tools.py
+
+#VsCode
+.vscode/
+.vscode
