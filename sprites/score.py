@@ -2,9 +2,9 @@ import pygame
 
 import constants
 
-from sprites.sahpe import Shpe
+from sprites.shape import Shape
 
-class Score(Shpe):
+class Score(Shape):
     def __init__(self, score, x, y):
         super().__init__(x, y)
         self.score = score

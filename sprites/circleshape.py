@@ -1,10 +1,10 @@
 import pygame
 
 import constants
-from sprites.sahpe import Shpe
+from sprites.shape import Shape
 
 
-class CircleShape(Shpe):
+class CircleShape(Shape):
 
     def __init__(self, x, y, radius):
         super().__init__(x, y)

@@ -38,3 +38,15 @@ MAROON = (128, 0, 0)
 TEAL = (0, 128, 128)
 NAVY = (0, 0, 128)
 CHARCOAL = (54, 69, 79)
+
+def darken_color(color, factor):
+    r = max(0, int(color[0] * factor))
+    g = max(0, int(color[1] * factor))
+    b = max(0, int(color[2] * factor))
+    return (r, g, b)
+
+def lighten_color(color, factor):
+    r = min(255, int(color[0] + (255 - color[0]) * factor))
+    g = min(255, int(color[1] + (255 - color[1]) * factor))
+    b = min(255, int(color[2] + (255 - color[2]) * factor))
+    return (r, g, b)

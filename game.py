@@ -1,8 +1,8 @@
 
 import pygame
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, DEFAULT_SPRITE_COLOR, DEFAULT_BACKGROUND_COLOR
-
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, DEFAULT_SPRITE_COLOR, DEFAULT_BACKGROUND_COLOR, MENU_OPTIONS, PauseMenuOption
+from color import darken_color, lighten_color
 from logger import log_event, log_state
 
 
@@ -12,6 +12,7 @@ from sprites.asteroid import Asteroid
 from sprites.asteroidfield import AsteroidField
 from sprites.player import Player
 from sprites.score import Score
+from sprites.pause_menu import PauseMenu
 
 
 class Game():
@@ -19,6 +20,7 @@ class Game():
     def __init__(self, screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT, sprite_color = DEFAULT_SPRITE_COLOR, background_color = DEFAULT_BACKGROUND_COLOR):
 
         self.__runing = True
+        self.__is_paused = False
         self.sprite_color = sprite_color
         self.background_color = background_color
 
@@ -62,6 +64,18 @@ class Game():
         self.background_color = background_color
         self.score.change_color(self.sprite_color)
 
+    def __update(self):
+        for sprite in self.updatable:
+            sprite.update(self.dt)
+    def __draw(self):
+        self.screen.fill(self.background_color)
+        for sprite in self.drawable:
+            sprite.draw(self.screen)
+
+    def __avance_time(self):
+        self.clock.tick(60)
+        self.dt = self.clock.get_time() / 1000.0
+
     def change_sprite_color(self, color):
         self.sprite_color = color
         Asteroid.color = self.sprite_color
@@ -78,6 +92,7 @@ class Game():
     
     def reset(self):
         self.__runing = True
+        self.__is_paused = False
         for sprite in self.resetables:
             sprite.reset()
 
@@ -86,6 +101,58 @@ class Game():
         self.player.reset()
         self.clock.tick(self.dt)
 
+    def __reolve_menu_option(self, option):
+        if option == MENU_OPTIONS[PauseMenuOption.RESUME.value]:
+            log_event("UNPAUSE")
+            self.__is_paused = False
+        elif option == MENU_OPTIONS[PauseMenuOption.RESTART.value]:
+            log_event("RESTART")
+            self.reset()
+        elif option == MENU_OPTIONS[PauseMenuOption.QUIT.value]:
+            log_event("QUIT")
+            self.__runing = False
+            self.__is_paused = False
+
+    def pause(self):
+        self.__is_paused = True
+        old_color = self.sprite_color
+        new_color = darken_color(self.sprite_color, 0.5)
+        self.change_sprite_color(new_color)
+        self.__avance_time()
+        pause_menu = PauseMenu(self.__screen_width / 2 - 100, self.__screen_height / 2 - 50, options=MENU_OPTIONS)
+        self.drawable.add(pause_menu)
+        while self.__is_paused:
+            self.__draw()
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+                    self.resolve_keys_imput(pygame.key.get_pressed(), event.type)
+            option = pause_menu.update(self.dt)
+            self.__reolve_menu_option(option)
+            self.__avance_time()
+            pygame.display.flip()
+
+        pause_menu.kill()
+        self.change_sprite_color(old_color)
+
+    def resolve_keys_imput(self, keys, event_type = None):
+        if event_type is None:
+            return
+        
+        if keys[pygame.K_ESCAPE] or keys[pygame.K_q]:
+            self.__runing = False
+            self.__is_paused = False
+            
+        if keys[pygame.K_r]:
+            self.reset()
+
+        if keys[pygame.K_p] and event_type == pygame.KEYDOWN:
+            log_event("PAUSE")
+            if self.__is_paused:
+                log_event("UNPAUSE")
+                self.__is_paused = False
+            else:
+                self.pause()
+
     def start(self):
         while self.__runing:
             log_state()
@@ -93,6 +160,11 @@ class Game():
                 if event.type == pygame.QUIT:
                     self.__runing = False
                     break
+                if event.type == pygame.KEYDOWN:
+                    self.resolve_keys_imput(pygame.key.get_pressed(), event.type)
+                if event.type == pygame.KEYUP:
+                    self.resolve_keys_imput(pygame.key.get_pressed(), event.type)
+
             self.screen.fill(self.background_color)
 
             for asteroid in self.asteroids:
@@ -108,25 +180,10 @@ class Game():
                         asteroid.split()
                         self.score.increase(10)
                         shot.kill()
+            self.__update()
+            self.__draw()
 
-            for sprite in self.updatable:
-                sprite.update(self.dt)
-
-            for sprite in self.drawable:
-                sprite.draw(self.screen)
-            
-            keys = pygame.key.get_pressed()
-            
-            if keys[pygame.K_ESCAPE] or keys[pygame.K_q]:
-                self.__runing = False
-                break
-            
-            if keys[pygame.K_r]:
-                self.reset()
-
-
-            self.clock.tick(60)
-            self.dt = self.clock.get_time() / 1000.0 
+            self.__avance_time()
 
             pygame.display.flip()
         print(f"final score: {self.score.score}")
