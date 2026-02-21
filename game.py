@@ -1,7 +1,7 @@
 
 import pygame
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, DEFAULT_SPRITE_COLOR, DEFAULT_BACKGROUND_COLOR
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, DEFAULT_SPRITE_COLOR, DEFAULT_BACKGROUND_COLOR, MENU_OPTIONS, PauseMenuOption
 from color import darken_color, lighten_color
 from logger import log_event, log_state
 
@@ -101,20 +101,33 @@ class Game():
         self.player.reset()
         self.clock.tick(self.dt)
 
+    def __reolve_menu_option(self, option):
+        if option == MENU_OPTIONS[PauseMenuOption.RESUME.value]:
+            log_event("UNPAUSE")
+            self.__is_paused = False
+        elif option == MENU_OPTIONS[PauseMenuOption.RESTART.value]:
+            log_event("RESTART")
+            self.reset()
+        elif option == MENU_OPTIONS[PauseMenuOption.QUIT.value]:
+            log_event("QUIT")
+            self.__runing = False
+            self.__is_paused = False
+
     def pause(self):
         self.__is_paused = True
         old_color = self.sprite_color
         new_color = darken_color(self.sprite_color, 0.5)
         self.change_sprite_color(new_color)
         self.__avance_time()
-        pause_menu = PauseMenu(self.score.score, self.__screen_width / 2 - 100, self.__screen_height / 2 - 50)
+        pause_menu = PauseMenu(self.__screen_width / 2 - 100, self.__screen_height / 2 - 50, options=MENU_OPTIONS)
         self.drawable.add(pause_menu)
         while self.__is_paused:
             self.__draw()
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
                     self.resolve_keys_imput(pygame.key.get_pressed(), event.type)
-            pause_menu.update(self.dt)
+            option = pause_menu.update(self.dt)
+            self.__reolve_menu_option(option)
             self.__avance_time()
             pygame.display.flip()
 

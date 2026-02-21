@@ -1,4 +1,5 @@
 from color import WHITE, BLACK
+from enum import Enum
 
 #Sceen dimensions
 SCREEN_WIDTH = 1280
@@ -19,6 +20,13 @@ SELECTOR_TITLE = "Color game: "
 #General properties
 LINE_WIDTH = 2
 
+#Pasue menu properties
+class PauseMenuOption(Enum):
+    RESUME = 0
+    RESTART = 1
+    QUIT = 2
+
+MENU_OPTIONS = ["Resume", "Restart", "Quit"]
 
 #Player properties
 PLAYER_RADIUS = 20 
