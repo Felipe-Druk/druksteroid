@@ -21,7 +21,8 @@ def main():
     high_score = HighScoreSavior(SAVES_HIGH_SCORE, HighScore(score, "DRUK") )
     high_old = high_score.deserialize()
     if high_old:
-        print(high_old.score)
+        score = high_old.score
+        print(f"Previous high score: {score}")
     menu = MenuDruksteroid(game.screen)
 
     while True:
