@@ -9,9 +9,14 @@ wheels/
 # Virtual environments
 .venv
 
+#saves
+saves
+saves/
+
 #logger
 game_state.jsonl
 game_events.jsonl
+tall_score.pickle
 
 #only for development
 development_tools.py
