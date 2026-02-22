@@ -1,6 +1,9 @@
 from color import WHITE, BLACK
 from enum import Enum
 
+#Saves properties
+SAVES_HIGH_SCORE = "saves/high_score.pickle"
+
 #Sceen dimensions
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720

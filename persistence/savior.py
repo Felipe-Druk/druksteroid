@@ -13,7 +13,9 @@ class Savior:
             pickle.dump(self._datos, f)
 
     def deserialize(self):
-        with open(self._file_name, 'rb') as f:
-            loded_data = pickle.load(f)
-            return loded_data
-        return None
+        try:
+            with open(self._file_name, 'rb') as f:
+                loded_data = pickle.load(f)
+                return loded_data
+        except FileNotFoundError: 
+            return None

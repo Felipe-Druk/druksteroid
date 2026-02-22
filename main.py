@@ -1,7 +1,8 @@
 import pygame   
 import sys
+import os 
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, SAVES_HIGH_SCORE
 from game import Game
 from menu_druksteroid import MenuDruksteroid
 from persistence.high_score_savior import HighScoreSavior, HighScore
@@ -13,11 +14,14 @@ def main():
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
 
+    os.makedirs("saves", exist_ok=True)
+
     game = Game()
-    score = 0
-    high_score = HighScoreSavior("tall_score.pickle", HighScore(score, "DRUK") )
+    score = 0   
+    high_score = HighScoreSavior(SAVES_HIGH_SCORE, HighScore(score, "DRUK") )
     high_old = high_score.deserialize()
-    print(high_old.score)
+    if high_old:
+        print(high_old.score)
     menu = MenuDruksteroid(game.screen)
 
     while True:
@@ -27,7 +31,7 @@ def main():
 
         if score < game.get_score():
             score = game.get_score()
-            high_score = HighScoreSavior("tall_score.pickle", HighScore(score, "DRUK") )
+            high_score = HighScoreSavior(SAVES_HIGH_SCORE, HighScore(score, "DRUK") )
             high_score.serialize()
             print(f"New high score: {score}")
         
